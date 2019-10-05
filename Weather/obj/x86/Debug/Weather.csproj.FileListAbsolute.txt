@@ -1,0 +1,5 @@
+/home/dail/Projects/Weather/Weather/bin/Debug/Weather.exe
+/home/dail/Projects/Weather/Weather/bin/Debug/Weather.pdb
+/home/dail/Projects/Weather/Weather/obj/x86/Debug/Weather.csprojAssemblyReference.cache
+/home/dail/Projects/Weather/Weather/obj/x86/Debug/Weather.exe
+/home/dail/Projects/Weather/Weather/obj/x86/Debug/Weather.pdb
