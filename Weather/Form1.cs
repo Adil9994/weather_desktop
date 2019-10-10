@@ -42,21 +42,7 @@ namespace Weather
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            String API_KEY = "846f12aa31d2907a0bbb26f484c1c60f";
-            String cityName = "Moscow";
-            String units = "metric";
-            String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
-            WebRequest request = WebRequest.Create(url);
-            request.Method = "POST";
-            WebResponse response = request.GetResponse();
-            using (Stream s = response.GetResponseStream())
-            {
-                using (StreamReader r = new StreamReader(s))
-                {
-                    textBox3.Text = r.ReadToEnd();
-                }
-            }
-            response.Close();
+          
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -69,6 +55,32 @@ namespace Weather
 
             // Start the watcher.
             Watcher.Start();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            String API_KEY = "846f12aa31d2907a0bbb26f484c1c60f";
+            String cityName = textBox4.Text;
+            String units = "metric";
+            AllWeatherInfo AllWeatherInfo;
+            String str = "";
+            String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
+            WebRequest request = WebRequest.Create(url);
+            request.Method = "POST";
+            WebResponse response = request.GetResponse();
+            using (Stream s = response.GetResponseStream())
+            {
+                using (StreamReader r = new StreamReader(s))
+                {
+                    str = r.ReadToEnd();
+                }
+            }
+            response.Close();
+            AllWeatherInfo = JsonConvert.DeserializeObject<AllWeatherInfo>(str);
+            label1.Text = AllWeatherInfo.clouds.all.ToString();
+            label2.Text = AllWeatherInfo.main.pressure.ToString();
+            label3.Text = AllWeatherInfo.weather[0].description.ToString();
+            label4.Text = AllWeatherInfo.weather[0].main.ToString();
         }
     }
 }

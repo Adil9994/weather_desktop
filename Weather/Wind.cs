@@ -8,7 +8,7 @@ namespace Weather
 {
     class Wind
     {
-        public int speed { get; set; }
-        public int deg { get; set; }
+        public double speed { get; set; }
+        public double deg { get; set; }
     }
 }
