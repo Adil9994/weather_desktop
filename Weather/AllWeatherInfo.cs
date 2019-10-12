@@ -14,7 +14,7 @@ namespace Weather
         [JsonProperty("base")]
         public string base1 { get; set; }
         public Main main { get; set; }
-        public int visibility { get; set; }
+        public double visibility { get; set; }
         public Wind wind { get; set; }
         public Clouds clouds { get; set; }
         public long dt { get; set; }

@@ -9,6 +9,6 @@ namespace Weather
     class Coords
     {
         public double lat { get; set; }
-        public double lan { get; set; }
+        public double lon { get; set; }
     }
 }

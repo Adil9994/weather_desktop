@@ -21,6 +21,7 @@ namespace Weather
             InitializeComponent();
         }
         private GeoCoordinateWatcher Watcher = null;
+        AllWeatherInfo AllWeatherInfo;
         private void Watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
         {
             if (e.Status == GeoPositionStatus.Ready)
@@ -42,7 +43,7 @@ namespace Weather
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-          
+            
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -62,7 +63,6 @@ namespace Weather
             String API_KEY = "846f12aa31d2907a0bbb26f484c1c60f";
             String cityName = textBox4.Text;
             String units = "metric";
-            AllWeatherInfo AllWeatherInfo;
             String str = "";
             String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
             WebRequest request = WebRequest.Create(url);
@@ -77,10 +77,51 @@ namespace Weather
             }
             response.Close();
             AllWeatherInfo = JsonConvert.DeserializeObject<AllWeatherInfo>(str);
-            label1.Text = AllWeatherInfo.clouds.all.ToString();
-            label2.Text = AllWeatherInfo.main.pressure.ToString();
-            label3.Text = AllWeatherInfo.weather[0].description.ToString();
-            label4.Text = AllWeatherInfo.weather[0].main.ToString();
+            setWind();
+            setWeather();
+            setMain();
+            setSys();
+            setClouds();
+            setUtility();
+        }
+        private void setWind()
+        {
+            label24.Text = AllWeatherInfo.wind.deg.ToString();
+            label29.Text = AllWeatherInfo.wind.speed.ToString();
+        }
+        private void setWeather()
+        {
+            label11.Text = AllWeatherInfo.weather[0].main.ToString();
+            label18.Text = AllWeatherInfo.weather[0].description.ToString();
+        }
+        private void setMain()
+        {
+            label12.Text = AllWeatherInfo.main.temp.ToString();
+            label27.Text = AllWeatherInfo.main.temp_min.ToString();
+            label28.Text = AllWeatherInfo.main.temp_max.ToString();
+            label25.Text = AllWeatherInfo.main.pressure.ToString();
+            label22.Text = AllWeatherInfo.main.humidity.ToString();
+        }
+        private void setSys()
+        {
+            label20.Text = timeGetterForSun(AllWeatherInfo.sys.sunrise).ToString();
+            label19.Text = timeGetterForSun(AllWeatherInfo.sys.sunset).ToString();
+        }
+        private void setClouds()
+        {
+            label21.Text = AllWeatherInfo.clouds.all.ToString();
+        }
+        private void setUtility()
+        {
+            label26.Text = AllWeatherInfo.visibility.ToString();
+            label10.Text = AllWeatherInfo.name.ToString();
+        }
+        private DateTime timeGetterForSun(long unixTimeStamp)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+             
         }
     }
 }
