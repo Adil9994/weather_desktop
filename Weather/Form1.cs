@@ -52,6 +52,12 @@ namespace Weather
         {
             radioButton1.Checked = true;
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            string json = File.ReadAllText($"city_lis.json");
+            var listOfObjects = JsonConvert.DeserializeObject<List<CityList>>(json);
+            for (int i = 0; i < 10000; i++)
+            {
+                comboBox1.Items.Add(listOfObjects[i].name);
+            }
         }
         private void checkMetric()
         {
@@ -80,7 +86,7 @@ namespace Weather
                 checkMetric();
                 label23.Text = "";
                 String API_KEY = "846f12aa31d2907a0bbb26f484c1c60f";
-                String cityName = textBox4.Text;
+                String cityName = comboBox1.Text;
                 String str = "";
                 String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
                 WebRequest request = WebRequest.Create(url);

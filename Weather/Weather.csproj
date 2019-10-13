@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllWeatherInfo.cs" />
+    <Compile Include="CityList.cs" />
     <Compile Include="Clouds.cs" />
     <Compile Include="Coords.cs" />
     <Compile Include="Form1.cs">
